@@ -115,12 +115,12 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 
 .bonus-panel { background:#fffdf0; border:1px solid #e8d880; border-radius:10px; padding:13px; margin-bottom:18px; }
 .bonus-title { font-size:0.85rem; font-weight:800; letter-spacing:4px; color:#a07800; margin-bottom:10px; text-transform:uppercase; }
-.bonus-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.bonus-row { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px; }
 .bonus-row:last-child { margin-bottom:0; }
 .bonus-name { font-size:0.95rem; font-weight:800; letter-spacing:1px; min-width:84px; text-transform:uppercase; }
-.bonus-inp { flex:1; background:#fff; border:1px solid #e0d070; border-radius:6px; color:#333; font-family:system-ui,-apple-system,sans-serif; font-size:0.8rem; padding:6px 9px; outline:none; }
-.bonus-inp::placeholder { color:#ccc; }
-.bonus-btn { width:34px; height:34px; border-radius:6px; border:1px solid #e0d070; background:#fff; color:#bbb; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; }
+.bonus-inp { flex:1; min-width:0; background:#fff; border:1px solid #e0d070; border-radius:6px; color:#333; font-family:system-ui,-apple-system,sans-serif; font-size:0.8rem; padding:6px 9px; outline:none; }
+.bonus-buttons { display:flex; gap:6px; flex-shrink:0; }
+.bonus-btn { width:34px; height:34px; border-radius:6px; border:1px solid #e0d070; background:#fff; color:#bbb; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all .2s; }
 .bonus-btn.on { background:#fff8d0; border-color:#c8960a; color:#c8960a; }
 
 .rules-panel { background:#fff; border:1px solid #ddd; border-radius:10px; overflow:hidden; margin-bottom:18px; }
@@ -523,10 +523,13 @@ function render() {
 
   document.getElementById('bonusGrid').innerHTML=day.anglers.map(function(angler){
     var cfg=ANGLERS[angler.id];
-    return '<div class="bonus-row"><div class="bonus-name" style="color:'+cfg.hex+'">'+cfg.name+'</div>'
+    return '<div class="bonus-row">'
+      +'<div class="bonus-name" style="color:'+cfg.hex+'">'+cfg.name+'</div>'
       +'<input class="bonus-inp" type="text" placeholder="Action insolite…" value="'+angler.bonusNote+'" oninput="upBonusNote('+angler.id+',this.value)"/>'
+      +'<div class="bonus-buttons">'
       +'<button class="bonus-btn'+(angler.bonus?' on':'')+'" onclick="toggleBonus('+angler.id+')">⭐</button>'
-      +'<button class="bonus-btn'+(angler.livescope?' on':'')+'" onclick="toggleLivescope('+angler.id+')">📡</button></div>';
+      +'<button class="bonus-btn'+(angler.livescope?' on':'')+'" onclick="toggleLivescope('+angler.id+')">📡</button>'
+      +'</div></div>';
   }).join('');
 }
 
