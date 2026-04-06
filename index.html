@@ -40,16 +40,45 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 .day-nav { margin-bottom:16px; }
 .day-nav-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
 .day-label { font-size:1.4rem; font-weight:900; letter-spacing:3px; color:#111; text-transform:uppercase; }
+.day-date-iso { font-size:0.68rem; color:#aaa; letter-spacing:1px; margin-top:2px; }
 .day-country { font-size:0.65rem; letter-spacing:4px; padding:3px 10px; border-radius:4px; font-weight:700; display:inline-block; margin-top:3px; text-transform:uppercase; }
 .day-country.es { background:rgba(198,12,48,0.1); border:1px solid rgba(198,12,48,0.3); color:#c0102a; }
 .day-country.pt { background:rgba(0,102,0,0.1); border:1px solid rgba(0,150,0,0.3); color:#207830; }
-.day-dots { display:flex; gap:5px; flex-wrap:wrap; }
+.day-dots { display:flex; gap:5px; flex-wrap:wrap; align-items:center; }
 .day-dot { width:32px; height:32px; border-radius:6px; border:1px solid #ddd; background:#f8f8f8; cursor:pointer; font-size:0.85rem; font-weight:700; color:#aaa; display:flex; align-items:center; justify-content:center; transition:all .15s; }
 .day-dot.es-dot { border-top:3px solid rgba(198,12,48,0.4); }
 .day-dot.pt-dot { border-top:3px solid rgba(0,150,0,0.4); }
 .day-dot.active.es-dot { border-color:#c0102a; color:#c0102a; background:rgba(198,12,48,0.08); }
 .day-dot.active.pt-dot { border-color:#207830; color:#207830; background:rgba(0,150,0,0.08); }
 .day-dot.has-data { color:#666; border-color:#bbb; }
+
+.add-day-panel { background:#f8f8f8; border:1px dashed #c8960a; border-radius:10px; padding:12px 14px; margin-bottom:18px; }
+.add-day-title { font-size:0.7rem; font-weight:800; letter-spacing:3px; color:#a07800; margin-bottom:10px; text-transform:uppercase; }
+.add-day-form { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; align-items:end; }
+.add-day-form label { font-size:0.58rem; font-weight:700; letter-spacing:1px; color:#999; text-transform:uppercase; display:block; margin-bottom:3px; }
+.add-day-inp { width:100%; padding:7px 9px; border:1px solid #ddd; border-radius:7px; font-size:0.82rem; background:#fff; color:#111; outline:none; font-family:system-ui,-apple-system,sans-serif; }
+.add-day-inp:focus { border-color:#c8960a; }
+.add-day-btn { width:100%; padding:8px; border-radius:7px; border:none; background:#c8960a; color:#fff; font-size:0.7rem; font-weight:800; letter-spacing:2px; cursor:pointer; text-transform:uppercase; }
+.add-day-btn:active { background:#a07800; }
+.del-day-btn { padding:5px 10px; border-radius:6px; border:1px solid #fcc; background:#fff5f5; color:#c05050; font-size:0.62rem; font-weight:700; cursor:pointer; white-space:nowrap; }
+
+/* ── MODALE CONFIRMATION ── */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:9999; display:flex; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.hidden { display:none; }
+.modal-box { background:#fff; border-radius:14px; padding:24px 20px; max-width:320px; width:100%; box-shadow:0 8px 40px rgba(0,0,0,0.25); }
+.modal-title { font-size:1rem; font-weight:900; color:#c05050; margin-bottom:8px; }
+.modal-body { font-size:0.78rem; color:#555; line-height:1.6; margin-bottom:14px; }
+.modal-body strong { color:#111; font-weight:800; letter-spacing:1px; }
+.modal-inp { width:100%; padding:10px 12px; border:2px solid #eee; border-radius:8px; font-size:1rem; font-weight:800; letter-spacing:3px; text-transform:uppercase; text-align:center; outline:none; font-family:system-ui,-apple-system,sans-serif; margin-bottom:12px; color:#c05050; transition:border-color .2s; }
+.modal-inp:focus { border-color:#fcc; }
+.modal-inp.valid { border-color:#c05050; background:#fff8f8; }
+.modal-btns { display:flex; gap:8px; }
+.modal-cancel { flex:1; padding:10px; border-radius:8px; border:1px solid #ddd; background:#f5f5f5; color:#555; font-size:0.72rem; font-weight:800; cursor:pointer; letter-spacing:1px; text-transform:uppercase; }
+.modal-cancel:hover { background:#eee; }
+.modal-confirm { flex:1; padding:10px; border-radius:8px; border:none; background:#eee; color:#aaa; font-size:0.72rem; font-weight:800; cursor:not-allowed; letter-spacing:1px; text-transform:uppercase; transition:all .2s; }
+.modal-confirm.ready { background:#c05050; color:#fff; cursor:pointer; }
+.modal-confirm.ready:hover { background:#a03030; }
+
 .nav-arrows { display:flex; gap:6px; }
 .nav-btn { width:36px; height:36px; border-radius:8px; border:1px solid #ddd; background:#f8f8f8; color:#666; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; }
 .nav-btn:active { background:#eee; }
@@ -87,7 +116,6 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 .card-pts-label { font-size:0.56rem; letter-spacing:3px; color:#aaa; text-transform:uppercase; }
 .leader-crown { position:absolute; top:9px; right:11px; font-size:1.1rem; animation:levitate 2s ease-in-out infinite; }
 @keyframes levitate { 0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-5px) rotate(5deg)} }
-
 .species-table { width:100%; border-collapse:collapse; margin-top:12px; }
 .species-table th { font-size:0.6rem; letter-spacing:2px; color:#aaa; font-weight:700; padding:5px 6px; background:#f8f8f8; border-top:1px solid #eee; border-bottom:1px solid #eee; text-align:left; text-transform:uppercase; }
 .species-table th:last-child,.species-table th:nth-child(3) { text-align:center; }
@@ -100,7 +128,6 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 .size-inp::-webkit-outer-spin-button,.size-inp::-webkit-inner-spin-button { -webkit-appearance:none; }
 .size-inp::placeholder { color:#ccc; font-size:.7rem; font-weight:400; }
 .size-inp:focus { border-color:#999; }
-.size-unit { font-size:.6rem; color:#aaa; }
 .crown-icon { font-size:.9rem; }
 .ctr { display:flex; align-items:center; gap:4px; justify-content:center; }
 .ctr-btn { width:26px; height:26px; border-radius:6px; border:1px solid #ddd; cursor:pointer; font-size:1rem; font-weight:700; display:flex; align-items:center; justify-content:center; background:#f5f5f5; color:#555; }
@@ -112,7 +139,6 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 .pts-pill.off { background:transparent; color:#ddd; border:1px solid #eee; }
 @keyframes popIn { 0%{transform:scale(1)}40%{transform:scale(1.18)}70%{transform:scale(.95)}100%{transform:scale(1)} }
 .pop { animation:popIn .35s ease; }
-
 .bonus-panel { background:#fffdf0; border:1px solid #e8d880; border-radius:10px; padding:13px; margin-bottom:18px; }
 .bonus-title { font-size:0.85rem; font-weight:800; letter-spacing:4px; color:#a07800; margin-bottom:10px; text-transform:uppercase; }
 .bonus-row { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px; }
@@ -122,7 +148,6 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 .bonus-buttons { display:flex; gap:6px; flex-shrink:0; }
 .bonus-btn { width:34px; height:34px; border-radius:6px; border:1px solid #e0d070; background:#fff; color:#bbb; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all .2s; }
 .bonus-btn.on { background:#fff8d0; border-color:#c8960a; color:#c8960a; }
-
 .rules-panel { background:#fff; border:1px solid #ddd; border-radius:10px; overflow:hidden; margin-bottom:18px; }
 .rules-head { background:#f5f5f5; border-bottom:1px solid #ddd; padding:9px 13px; font-size:0.85rem; font-weight:800; letter-spacing:4px; color:#888; text-transform:uppercase; }
 .rules-table { width:100%; border-collapse:collapse; }
@@ -135,22 +160,52 @@ body { background:#fff; color:#111; font-family:system-ui,-apple-system,sans-ser
 .maille-badges { display:flex; gap:7px; padding:9px 13px; background:#f8f8f8; border-top:1px solid #eee; flex-wrap:wrap; }
 .maille-badge { display:inline-flex; align-items:center; gap:4px; background:#fff; border:1px solid #ddd; border-radius:4px; padding:3px 9px; font-size:0.7rem; font-weight:700; letter-spacing:1px; color:#888; text-transform:uppercase; }
 .maille-val { color:#a07800; font-size:0.95rem; font-weight:800; }
-
+.empty-state { text-align:center; padding:24px 20px; color:#ccc; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; }
 footer { text-align:center; font-size:0.56rem; letter-spacing:4px; color:#ccc; padding-bottom:10px; text-transform:uppercase; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
+<!-- ── MODALE SUPPRESSION — fonctionne dans tous contextes incl. iframes ── -->
+<div class="modal-overlay hidden" id="del-modal">
+  <div class="modal-box">
+    <div class="modal-title">🗑️ Supprimer ce jour ?</div>
+    <div class="modal-body" id="del-modal-body"></div>
+    <input class="modal-inp" id="del-modal-inp" type="text"
+      placeholder="SUPPRIMER"
+      oninput="onDelInput(this.value)"
+      autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"/>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeDelModal()">Annuler</button>
+      <button class="modal-confirm" id="del-modal-btn" onclick="confirmDeleteDay()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
 <div class="header">
   <div class="header-logo">IBERIA <span>CUP</span></div>
-  <div class="header-sub">12 Jours · Espagne & Portugal</div>
+  <div class="header-sub">Espagne &amp; Portugal</div>
   <div class="header-flags">🇪🇸 🇵🇹</div>
   <div class="header-date" id="dateBadge">📅 ...</div>
   <div class="sync-status" id="syncStatus"></div>
 </div>
 
-<div class="section-label">🌍 Classement global — 12 jours</div>
+<div class="add-day-panel">
+  <div class="add-day-title">➕ Ajouter un jour de compétition</div>
+  <div class="add-day-form">
+    <div><label>Date</label><input type="date" class="add-day-inp" id="new-day-date"/></div>
+    <div><label>Pays</label>
+      <select class="add-day-inp" id="new-day-country">
+        <option value="es">🇪🇸 Espagne</option>
+        <option value="pt">🇵🇹 Portugal</option>
+      </select>
+    </div>
+    <div><label>&nbsp;</label><button class="add-day-btn" onclick="addDay()">Ajouter</button></div>
+  </div>
+</div>
+
+<div class="section-label">🌍 Classement global</div>
 <div class="global-banner" id="globalBanner"></div>
 
 <div class="section-label">🐟 Tableau des captures</div>
@@ -159,12 +214,14 @@ footer { text-align:center; font-size:0.56rem; letter-spacing:4px; color:#ccc; p
 <div class="day-nav">
   <div class="day-nav-top">
     <div>
-      <div class="day-label" id="dayLabel">Jour 1</div>
-      <div class="day-country es" id="dayCountry">🇪🇸 Espagne</div>
+      <div class="day-label" id="dayLabel">—</div>
+      <div class="day-date-iso" id="dayDateISO"></div>
+      <div class="day-country" id="dayCountry"></div>
     </div>
     <div class="nav-arrows">
       <button class="nav-btn" id="btnPrev">‹</button>
       <button class="nav-btn" id="btnNext">›</button>
+      <button class="del-day-btn" onclick="openDelModal()">🗑 Suppr.</button>
     </div>
   </div>
   <div class="day-dots" id="dayDots"></div>
@@ -180,7 +237,7 @@ footer { text-align:center; font-size:0.56rem; letter-spacing:4px; color:#ccc; p
 <div class="cards" id="cards"></div>
 
 <div class="bonus-panel">
-  <div class="bonus-title">⭐ Wild Card & 📡 Live Scope</div>
+  <div class="bonus-title">⭐ Wild Card &amp; 📡 Live Scope</div>
   <div id="bonusGrid"></div>
 </div>
 
@@ -206,392 +263,173 @@ footer { text-align:center; font-size:0.56rem; letter-spacing:4px; color:#ccc; p
   </div>
 </div>
 
-<footer>Iberia Cup · Cast & Conquer · v5.0</footer>
+<footer>Iberia Cup · Cast &amp; Conquer · v6.1</footer>
 </div>
 
 <script>
-// ── DONNÉES ──
-var ANGLERS = [
-  { id:0, name:'GUILLAUME', number:'#01', emoji:'🎣', hex:'#1a6a9a' },
-  { id:1, name:'ANTOINE',   number:'#02', emoji:'🏆', hex:'#9a7000' }
-];
+var ANGLERS=[{id:0,name:'GUILLAUME',number:'#01',emoji:'🎣',hex:'#1a6a9a'},{id:1,name:'ANTOINE',number:'#02',emoji:'🏆',hex:'#9a7000'}];
+var SPECIES=[{id:'bass',label:'BASS',emoji:'🎸',minSize:30},{id:'pike',label:'BROCHET',emoji:'🐟',minSize:60},{id:'zander',label:'SANDRE',emoji:'⚡',minSize:50}];
+var S={currentDay:0,days:[],photos:[null,null]};
+var firebaseReady=false,dbRef=null;
 
-var SPECIES = [
-  { id:'bass',   label:'BASS',    emoji:'🎸', hasSize:true, minSize:30 },
-  { id:'pike',   label:'BROCHET', emoji:'🐟', hasSize:true, minSize:60 },
-  { id:'zander', label:'SANDRE',  emoji:'⚡', hasSize:true, minSize:50 }
-];
+function freshAngler(id){return{id:id,counts:{bass:0,pike:0,zander:0},sizes:{bass:'',pike:'',zander:''},milestone3:{bass:false,pike:false,zander:false},sizets:{bass:0,pike:0,zander:0},bonus:false,bonusNote:'',livescope:false};}
+function freshDay(dateISO,country){return{dateISO:dateISO||'',country:country||'es',anglers:[freshAngler(0),freshAngler(1)]};}
+function fmtDateISO(iso){if(!iso)return'';var d=new Date(iso+'T12:00:00');return d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short',year:'numeric'});}
 
-var TOTAL_DAYS = 12, ES_DAYS = 6;
-
-// ── STATE ──
-var S = { currentDay:0, days:[], photos:[null,null] };
-var firebaseReady = false;
-var dbRef = null;
-
-function freshAngler(id) {
-  return {
-    id:id,
-    counts:{bass:0,pike:0,zander:0},
-    sizes:{bass:'',pike:'',zander:''},
-    milestone3:{bass:false,pike:false,zander:false},
-    sizets:{bass:0,pike:0,zander:0},
-    bonus:false, bonusNote:'', livescope:false
-  };
+// ── MODALE ──
+function openDelModal(){
+  if(!S.days.length)return;
+  var day=S.days[S.currentDay];
+  document.getElementById('del-modal-body').innerHTML='Supprimer le <strong>Jour '+(S.currentDay+1)+(day.dateISO?' — '+fmtDateISO(day.dateISO):'')+'</strong> ?<br>Cette action est irréversible.<br>Tape <strong>SUPPRIMER</strong> pour confirmer.';
+  var inp=document.getElementById('del-modal-inp');
+  inp.value='';
+  inp.classList.remove('valid');
+  document.getElementById('del-modal-btn').classList.remove('ready');
+  document.getElementById('del-modal').classList.remove('hidden');
+  setTimeout(function(){inp.focus();},80);
 }
-
-function freshDay() {
-  return { anglers:[ freshAngler(0), freshAngler(1) ] };
+function closeDelModal(){
+  document.getElementById('del-modal').classList.add('hidden');
+  document.getElementById('del-modal-inp').value='';
+  document.getElementById('del-modal-inp').classList.remove('valid');
+  document.getElementById('del-modal-btn').classList.remove('ready');
 }
+function onDelInput(val){
+  var ok=val.trim().toUpperCase()==='SUPPRIMER';
+  document.getElementById('del-modal-btn').classList.toggle('ready',ok);
+  document.getElementById('del-modal-inp').classList.toggle('valid',ok);
+}
+function confirmDeleteDay(){
+  if(document.getElementById('del-modal-inp').value.trim().toUpperCase()!=='SUPPRIMER')return;
+  S.days.splice(S.currentDay,1);
+  if(S.currentDay>=S.days.length)S.currentDay=Math.max(0,S.days.length-1);
+  closeDelModal();saveToFirebase();render();
+}
+document.getElementById('del-modal').addEventListener('click',function(e){if(e.target===this)closeDelModal();});
 
-function freshAll() {
-  return { currentDay:0, days:Array.from({length:TOTAL_DAYS}, function(){ return freshDay(); }), photos:[null,null] };
+// ── AJOUT ──
+function addDay(){
+  var dateVal=document.getElementById('new-day-date').value;
+  var country=document.getElementById('new-day-country').value;
+  if(!dateVal){alert('Sélectionne une date.');return;}
+  if(S.days.some(function(d){return d.dateISO===dateVal;})){alert('Ce jour existe déjà.');return;}
+  S.days.push(freshDay(dateVal,country));
+  S.days.sort(function(a,b){return a.dateISO.localeCompare(b.dateISO);});
+  S.currentDay=S.days.findIndex(function(d){return d.dateISO===dateVal;});
+  saveToFirebase();render();
+  document.getElementById('new-day-date').value='';
 }
 
 // ── PERSISTENCE ──
-function savePhotos() {
-  try { localStorage.setItem('iberia_photos', JSON.stringify(S.photos)); } catch(e) {}
-}
-function loadPhotos() {
-  try { var p=localStorage.getItem('iberia_photos'); if(p) S.photos=JSON.parse(p); } catch(e) {}
-}
-
-function anglerFromData(data, id) {
-  if(!data) return freshAngler(id);
-  return {
-    id:id,
-    counts: data.counts || {bass:0,pike:0,zander:0},
-    sizes: data.sizes || {bass:'',pike:'',zander:''},
-    milestone3: data.milestone3 || {bass:false,pike:false,zander:false},
-    sizets: data.sizets || {bass:0,pike:0,zander:0},
-    bonus: data.bonus || false,
-    bonusNote: data.bonusNote || '',
-    livescope: data.livescope || false
-  };
-}
-
-function dayFromData(data) {
-  return {
-    anglers: [0,1].map(function(id) {
-      return anglerFromData(data && data.anglers ? data.anglers[id] : null, id);
-    })
-  };
-}
-
-function saveToFirebase() {
-  if(!firebaseReady || !dbRef) return;
-  var payload = {
-    currentDay: S.currentDay,
-    days: S.days.map(function(d) {
-      return {
-        anglers: d.anglers.map(function(a) {
-          return {
-            id:a.id, counts:a.counts, sizes:a.sizes,
-            milestone3:a.milestone3, sizets:a.sizets,
-            bonus:a.bonus, bonusNote:a.bonusNote, livescope:a.livescope
-          };
-        })
-      };
-    })
-  };
-  dbRef.set(payload);
-}
+function savePhotos(){try{localStorage.setItem('iberia_photos',JSON.stringify(S.photos));}catch(e){}}
+function loadPhotos(){try{var p=localStorage.getItem('iberia_photos');if(p)S.photos=JSON.parse(p);}catch(e){}}
+function anglerFromData(data,id){if(!data)return freshAngler(id);return{id:id,counts:data.counts||{bass:0,pike:0,zander:0},sizes:data.sizes||{bass:'',pike:'',zander:''},milestone3:data.milestone3||{bass:false,pike:false,zander:false},sizets:data.sizets||{bass:0,pike:0,zander:0},bonus:data.bonus||false,bonusNote:data.bonusNote||'',livescope:data.livescope||false};}
+function dayFromData(data){return{dateISO:data.dateISO||'',country:data.country||'es',anglers:[0,1].map(function(id){return anglerFromData(data&&data.anglers?data.anglers[id]:null,id);})};}
+function saveToFirebase(){if(!firebaseReady||!dbRef)return;dbRef.set({currentDay:S.currentDay,days:S.days.map(function(d){return{dateISO:d.dateISO,country:d.country,anglers:d.anglers.map(function(a){return{id:a.id,counts:a.counts,sizes:a.sizes,milestone3:a.milestone3,sizets:a.sizets,bonus:a.bonus,bonusNote:a.bonusNote,livescope:a.livescope};})};})});}
 
 // ── SCORING ──
-function getDay() { return S.days[S.currentDay]; }
-
-function biggestSize(day, spId) {
-  var min = SPECIES.filter(function(s){return s.id===spId;})[0].minSize;
-  var best = {size:0, ts:Infinity, id:-1};
-  day.anglers.forEach(function(a) {
-    var v = parseFloat(a.sizes[spId]) || 0;
-    if(v < min || v === 0) return;
-    if(v > best.size || (v === best.size && a.sizets[spId] < best.ts))
-      best = {size:v, ts:a.sizets[spId], id:a.id};
-  });
-  return best.id;
-}
-
-function totalFish(a) { var t=0; for(var k in a.counts) t+=a.counts[k]; return t; }
-
-function volumeLeader(day) {
-  var max=0, winner=-1;
-  day.anglers.forEach(function(a){ var t=totalFish(a); if(t>max){max=t;winner=a.id;} });
-  return max>0?winner:-1;
-}
-
-function computeDayScores(day) {
-  var bassBest=biggestSize(day,'bass'), pikeBest=biggestSize(day,'pike'), volWin=volumeLeader(day);
-  return day.anglers.map(function(a) {
-    var pts=0, bd=[];
-    SPECIES.forEach(function(sp){ if(a.milestone3[sp.id]){pts+=1;bd.push('x3'+sp.emoji);} });
-    if(a.id===bassBest){ pts+=1; bd.push('👑🎸'); }
-    if(a.id===pikeBest){ pts+=1; bd.push('👑🐟'); }
-    if(a.id===volWin)  { pts+=1; bd.push('📊'); }
-    var zv=parseFloat(a.sizes.zander)||0;
-    if(a.counts.zander>0&&zv>=50){ pts+=1; bd.push('⚡'); }
-    if(a.livescope){ pts+=1; bd.push('📡'); }
-    if(a.bonus)    { pts+=1; bd.push('⭐'); }
-    return {id:a.id, pts:pts, bd:bd};
-  });
-}
-
-function computeGlobalScores() {
-  var totals=[{id:0,pts:0},{id:1,pts:0}];
-  S.days.forEach(function(day){ computeDayScores(day).forEach(function(s){ totals[s.id].pts+=s.pts; }); });
-  return totals;
-}
-
-function computeGlobalCatches() {
-  var totals=[{id:0,counts:{bass:0,pike:0,zander:0}},{id:1,counts:{bass:0,pike:0,zander:0}}];
-  S.days.forEach(function(day){
-    day.anglers.forEach(function(a){
-      SPECIES.forEach(function(sp){ totals[a.id].counts[sp.id]+=a.counts[sp.id]; });
-    });
-  });
-  return totals;
-}
-
-function dayHasData(di) {
-  return S.days[di].anglers.some(function(a){
-    for(var k in a.counts) if(a.counts[k]>0) return true;
-    return a.bonus||a.livescope;
-  });
-}
+function getDay(){return S.days[S.currentDay];}
+function biggestSize(day,spId){var min=SPECIES.filter(function(s){return s.id===spId;})[0].minSize;var best={size:0,ts:Infinity,id:-1};day.anglers.forEach(function(a){var v=parseFloat(a.sizes[spId])||0;if(v<min||v===0)return;if(v>best.size||(v===best.size&&a.sizets[spId]<best.ts))best={size:v,ts:a.sizets[spId],id:a.id};});return best.id;}
+function totalFish(a){var t=0;for(var k in a.counts)t+=a.counts[k];return t;}
+function volumeLeader(day){var max=0,winner=-1;day.anglers.forEach(function(a){var t=totalFish(a);if(t>max){max=t;winner=a.id;}});return max>0?winner:-1;}
+function computeDayScores(day){var bB=biggestSize(day,'bass'),pB=biggestSize(day,'pike'),vW=volumeLeader(day);return day.anglers.map(function(a){var pts=0,bd=[];SPECIES.forEach(function(sp){if(a.milestone3[sp.id]){pts++;bd.push('x3'+sp.emoji);}});if(a.id===bB){pts++;bd.push('👑🎸');}if(a.id===pB){pts++;bd.push('👑🐟');}if(a.id===vW){pts++;bd.push('📊');}var zv=parseFloat(a.sizes.zander)||0;if(a.counts.zander>0&&zv>=50){pts++;bd.push('⚡');}if(a.livescope){pts++;bd.push('📡');}if(a.bonus){pts++;bd.push('⭐');}return{id:a.id,pts:pts,bd:bd};});}
+function computeGlobalScores(){var t=[{id:0,pts:0},{id:1,pts:0}];S.days.forEach(function(day){computeDayScores(day).forEach(function(s){t[s.id].pts+=s.pts;});});return t;}
+function computeGlobalCatches(){var t=[{id:0,counts:{bass:0,pike:0,zander:0}},{id:1,counts:{bass:0,pike:0,zander:0}}];S.days.forEach(function(day){day.anglers.forEach(function(a){SPECIES.forEach(function(sp){t[a.id].counts[sp.id]+=a.counts[sp.id];});});});return t;}
+function dayHasData(di){return S.days[di].anglers.some(function(a){for(var k in a.counts)if(a.counts[k]>0)return true;return a.bonus||a.livescope;});}
 
 // ── ACTIONS ──
-function upCount(aid, spId, d) {
-  var a=getDay().anglers[aid];
-  a.counts[spId]=Math.max(0,a.counts[spId]+d);
-  a.milestone3[spId]=a.counts[spId]>=3;
-  saveToFirebase(); render();
-  var el=document.getElementById('v'+aid+spId);
-  if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
-}
-
-function upSize(aid, spId, val) {
-  var a=getDay().anglers[aid];
-  var prev=parseFloat(a.sizes[spId])||0, next=parseFloat(val)||0;
-  a.sizes[spId]=val;
-  if(next>prev) a.sizets[spId]=Date.now();
-
-  // Mise à jour visuelle sans render()
-  var sp=SPECIES.filter(function(s){return s.id===spId;})[0];
-  var mailed=next>=sp.minSize&&next>0;
-  var bc=val?(mailed?'#5a9a5a':'#c05050'):'#ddd';
-  var inp=document.getElementById('sz'+aid+spId);
-  if(inp) inp.style.borderColor=bc;
-  var bB=biggestSize(getDay(),'bass'), pB=biggestSize(getDay(),'pike'), zB=biggestSize(getDay(),'zander');
-  var winMap={bass:bB,pike:pB,zander:zB};
-  var isWin=aid===winMap[spId]&&mailed;
-  var cr=document.getElementById('cr'+aid+spId);
-  if(cr) cr.textContent=isWin?'👑':'cm';
-
-  // Sauvegarde différée pour ne pas déclencher le listener Firebase à chaque frappe
-  clearTimeout(upSize._t);
-  upSize._t=setTimeout(function(){ saveToFirebase(); }, 800);
-}
-
-function toggleBonus(aid)     { getDay().anglers[aid].bonus=!getDay().anglers[aid].bonus; saveToFirebase(); render(); }
-function toggleLivescope(aid) { getDay().anglers[aid].livescope=!getDay().anglers[aid].livescope; saveToFirebase(); render(); }
-
-function upBonusNote(aid, val) {
-  getDay().anglers[aid].bonusNote=val;
-  clearTimeout(upBonusNote._t);
-  upBonusNote._t=setTimeout(function(){ saveToFirebase(); }, 800);
-}
-
-function uploadPhoto(aid) {
-  var inp=document.getElementById('photoInp'+aid), file=inp.files[0]; if(!file) return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var canvas=document.createElement('canvas'), img=new Image();
-    img.onload=function(){
-      var size=120, scale=Math.min(size/img.width,size/img.height);
-      canvas.width=img.width*scale; canvas.height=img.height*scale;
-      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-      S.photos[aid]=canvas.toDataURL('image/jpeg',0.8); savePhotos(); render();
-    };
-    img.src=ev.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-function goDay(i){ S.currentDay=i; saveToFirebase(); render(); }
+function upCount(aid,spId,d){var a=getDay().anglers[aid];a.counts[spId]=Math.max(0,a.counts[spId]+d);a.milestone3[spId]=a.counts[spId]>=3;saveToFirebase();render();var el=document.getElementById('v'+aid+spId);if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}}
+function upSize(aid,spId,val){var a=getDay().anglers[aid];var prev=parseFloat(a.sizes[spId])||0,next=parseFloat(val)||0;a.sizes[spId]=val;if(next>prev)a.sizets[spId]=Date.now();var sp=SPECIES.filter(function(s){return s.id===spId;})[0];var mailed=next>=sp.minSize&&next>0;var bc=val?(mailed?'#5a9a5a':'#c05050'):'#ddd';var inp=document.getElementById('sz'+aid+spId);if(inp)inp.style.borderColor=bc;var winMap={bass:biggestSize(getDay(),'bass'),pike:biggestSize(getDay(),'pike'),zander:biggestSize(getDay(),'zander')};var isWin=aid===winMap[spId]&&mailed;var cr=document.getElementById('cr'+aid+spId);if(cr)cr.textContent=isWin?'👑':'cm';clearTimeout(upSize._t);upSize._t=setTimeout(function(){saveToFirebase();},800);}
+function toggleBonus(aid){getDay().anglers[aid].bonus=!getDay().anglers[aid].bonus;saveToFirebase();render();}
+function toggleLivescope(aid){getDay().anglers[aid].livescope=!getDay().anglers[aid].livescope;saveToFirebase();render();}
+function upBonusNote(aid,val){getDay().anglers[aid].bonusNote=val;clearTimeout(upBonusNote._t);upBonusNote._t=setTimeout(function(){saveToFirebase();},800);}
+function uploadPhoto(aid){var inp=document.getElementById('photoInp'+aid),file=inp.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){var canvas=document.createElement('canvas'),img=new Image();img.onload=function(){var size=120,scale=Math.min(size/img.width,size/img.height);canvas.width=img.width*scale;canvas.height=img.height*scale;canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);S.photos[aid]=canvas.toDataURL('image/jpeg',0.8);savePhotos();render();};img.src=ev.target.result;};reader.readAsDataURL(file);}
+function goDay(i){S.currentDay=i;saveToFirebase();render();}
 
 // ── RENDER ──
-function renderGlobal() {
-  var global=computeGlobalScores(), sorted=global.slice().sort(function(a,b){return b.pts-a.pts;});
-  document.getElementById('globalBanner').innerHTML=sorted.map(function(s,i){
-    var cfg=ANGLERS[s.id], photo=S.photos[s.id];
-    var thumb=photo
-      ?'<img src="'+photo+'" style="width:32px;height:32px;border-radius:7px;object-fit:cover;border:2px solid '+cfg.hex+'55;margin:0 auto 4px;display:block;"/>'
-      :'<div style="font-size:1.4rem;margin-bottom:2px;">'+cfg.emoji+'</div>';
-    return '<div class="global-card" style="border-color:'+(i===0&&s.pts>0?cfg.hex:'#ddd')+'">'
-      +thumb+'<div class="global-name" style="color:'+cfg.hex+'">'+cfg.name+'</div>'
-      +'<div class="global-pts" style="color:'+cfg.hex+'">'+s.pts+'</div>'
-      +'<div class="global-sub">PTS CUMULÉS '+(i===0&&s.pts>0?'👑':'')+'</div></div>';
-  }).join('');
-}
+function renderGlobal(){var g=computeGlobalScores(),sorted=g.slice().sort(function(a,b){return b.pts-a.pts;});document.getElementById('globalBanner').innerHTML=sorted.map(function(s,i){var cfg=ANGLERS[s.id],photo=S.photos[s.id];var thumb=photo?'<img src="'+photo+'" style="width:32px;height:32px;border-radius:7px;object-fit:cover;border:2px solid '+cfg.hex+'55;margin:0 auto 4px;display:block;"/>':'<div style="font-size:1.4rem;margin-bottom:2px;">'+cfg.emoji+'</div>';return'<div class="global-card" style="border-color:'+(i===0&&s.pts>0?cfg.hex:'#ddd')+'">'+thumb+'<div class="global-name" style="color:'+cfg.hex+'">'+cfg.name+'</div><div class="global-pts" style="color:'+cfg.hex+'">'+s.pts+'</div><div class="global-sub">PTS CUMULÉS '+(i===0&&s.pts>0?'👑':'')+'</div></div>';}).join('');}
+function renderCatchTable(){var catches=computeGlobalCatches();var rows=SPECIES.map(function(sp){var total=0;var cells=catches.map(function(c,i){total+=c.counts[sp.id];return'<td style="color:'+ANGLERS[i].hex+'">'+(c.counts[sp.id]||'—')+'</td>';}).join('');return'<tr><td>'+sp.emoji+' '+sp.label+'</td>'+cells+'<td style="color:#999">'+(total||'—')+'</td></tr>';}).join('');var pTotals=catches.map(function(c){var t=0;for(var k in c.counts)t+=c.counts[k];return t;});var grand=pTotals.reduce(function(s,v){return s+v;},0);document.getElementById('catchTable').innerHTML='<div class="catch-wrap"><table class="catch-tbl"><thead><tr><th>Espèce</th>'+ANGLERS.map(function(a){return'<th style="color:'+a.hex+'">'+a.name+'</th>';}).join('')+'<th>Total</th></tr></thead><tbody>'+rows+'<tr><td>Total</td>'+pTotals.map(function(t,i){return'<td style="color:'+ANGLERS[i].hex+'">'+(t||'—')+'</td>';}).join('')+'<td>'+(grand||'—')+'</td></tr></tbody></table></div>';}
 
-function renderCatchTable() {
-  var catches=computeGlobalCatches();
-  var rows=SPECIES.map(function(sp){
-    var total=0;
-    var cells=catches.map(function(c,i){ total+=c.counts[sp.id]; return '<td style="color:'+ANGLERS[i].hex+'">'+(c.counts[sp.id]||'—')+'</td>'; }).join('');
-    return '<tr><td>'+sp.emoji+' '+sp.label+'</td>'+cells+'<td style="color:#999">'+(total||'—')+'</td></tr>';
-  }).join('');
-  var pTotals=catches.map(function(c){ var t=0; for(var k in c.counts) t+=c.counts[k]; return t; });
-  var grand=pTotals.reduce(function(s,v){return s+v;},0);
-  document.getElementById('catchTable').innerHTML=
-    '<div class="catch-wrap"><table class="catch-tbl"><thead><tr><th>Espèce</th>'
-    +ANGLERS.map(function(a){return '<th style="color:'+a.hex+'">'+a.name+'</th>';}).join('')
-    +'<th>Total</th></tr></thead><tbody>'+rows
-    +'<tr><td>Total</td>'+pTotals.map(function(t,i){return '<td style="color:'+ANGLERS[i].hex+'">'+(t||'—')+'</td>';}).join('')
-    +'<td>'+(grand||'—')+'</td></tr></tbody></table></div>';
-}
-
-function renderStandings() {
-  var day=getDay(), scores=computeDayScores(day);
-  var maxPts=1; scores.forEach(function(s){if(s.pts>maxPts)maxPts=s.pts;});
-  var sorted=scores.slice().sort(function(a,b){return b.pts-a.pts;});
-  document.getElementById('standings').innerHTML=sorted.map(function(s,i){
-    var cfg=ANGLERS[s.id], photo=S.photos[s.id];
-    var thumb=photo?'<img class="st-thumb" src="'+photo+'" style="border:1.5px solid '+cfg.hex+'55;"/>'
-      :'<span style="font-size:1rem;">'+cfg.emoji+'</span>';
-    return '<div class="standings-row'+(i===0&&s.pts>0?' top':'')+'"><div class="st-rank '+(i===0?'r1':'r2')+'">'+(i===0?'🥇':'🥈')+'</div>'
-      +'<div class="st-info"><div class="st-name" style="color:'+cfg.hex+'">'+thumb+cfg.name+'</div>'
-      +'<div class="st-breakdown">'+(s.bd.join(' · ')||'—')+'</div></div>'
-      +'<div class="st-bar-wrap"><div class="st-bar" style="width:'+Math.round(s.pts/maxPts*100)+'%;background:'+cfg.hex+'"></div></div>'
-      +'<div class="st-pts" style="color:'+cfg.hex+'">'+s.pts+'</div></div>';
-  }).join('');
-}
-
-function render() {
-  var day=getDay(), scores=computeDayScores(day);
-  var topPts=0; scores.forEach(function(s){if(s.pts>topPts)topPts=s.pts;});
-  var leadId=topPts>0?scores.filter(function(s){return s.pts===topPts;})[0].id:-1;
-  var isES=S.currentDay<ES_DAYS;
-
+function render(){
   document.getElementById('dateBadge').textContent='📅 '+new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).toUpperCase();
+  renderGlobal();renderCatchTable();
+  if(!S.days.length){
+    document.getElementById('dayLabel').textContent='—';
+    document.getElementById('dayDateISO').textContent='Ajoute un premier jour ↑';
+    document.getElementById('dayCountry').textContent='';
+    document.getElementById('dayDots').innerHTML='';
+    document.getElementById('standings').innerHTML='<div class="empty-state">Aucun jour enregistré</div>';
+    document.getElementById('cards').innerHTML='';
+    document.getElementById('bonusGrid').innerHTML='';
+    return;
+  }
+  var day=getDay(),isES=day.country==='es';
   document.getElementById('dayLabel').textContent='Jour '+(S.currentDay+1);
+  document.getElementById('dayDateISO').textContent=fmtDateISO(day.dateISO);
   var dc=document.getElementById('dayCountry');
   dc.textContent=isES?'🇪🇸 Espagne':'🇵🇹 Portugal';
   dc.className='day-country '+(isES?'es':'pt');
+  document.getElementById('dayDots').innerHTML=S.days.map(function(d,i){var es=d.country==='es',active=i===S.currentDay,hd=dayHasData(i);return'<div class="day-dot '+(es?'es-dot':'pt-dot')+(active?' active':'')+(hd&&!active?' has-data':'')+'" onclick="goDay('+i+')" title="'+(d.dateISO||'Jour '+(i+1))+'">'+(i+1)+'</div>';}).join('');
 
-  document.getElementById('dayDots').innerHTML=Array.from({length:TOTAL_DAYS},function(_,i){
-    var es=i<ES_DAYS, active=i===S.currentDay, hd=dayHasData(i);
-    return '<div class="day-dot '+(es?'es-dot':'pt-dot')+(active?' active':'')+(hd&&!active?' has-data':'')+'" onclick="goDay('+i+')">'+(i+1)+'</div>';
-  }).join('');
+  var scores=computeDayScores(day);
+  var maxPts=1;scores.forEach(function(s){if(s.pts>maxPts)maxPts=s.pts;});
+  var sorted=scores.slice().sort(function(a,b){return b.pts-a.pts;});
+  document.getElementById('standings').innerHTML=sorted.map(function(s,i){var cfg=ANGLERS[s.id],photo=S.photos[s.id];var thumb=photo?'<img class="st-thumb" src="'+photo+'" style="border:1.5px solid '+cfg.hex+'55;"/>':'<span style="font-size:1rem;">'+cfg.emoji+'</span>';return'<div class="standings-row'+(i===0&&s.pts>0?' top':'')+'"><div class="st-rank '+(i===0?'r1':'r2')+'">'+(i===0?'🥇':'🥈')+'</div><div class="st-info"><div class="st-name" style="color:'+cfg.hex+'">'+thumb+cfg.name+'</div><div class="st-breakdown">'+(s.bd.join(' · ')||'—')+'</div></div><div class="st-bar-wrap"><div class="st-bar" style="width:'+Math.round(s.pts/maxPts*100)+'%;background:'+cfg.hex+'"></div></div><div class="st-pts" style="color:'+cfg.hex+'">'+s.pts+'</div></div>';}).join('');
 
-  renderStandings(); renderGlobal(); renderCatchTable();
-
-  var bassBest=biggestSize(day,'bass'), pikeBest=biggestSize(day,'pike'), zanderBest=biggestSize(day,'zander');
-  var winMap={bass:bassBest,pike:pikeBest,zander:zanderBest};
+  var topPts=0;scores.forEach(function(s){if(s.pts>topPts)topPts=s.pts;});
+  var leadId=topPts>0?scores.filter(function(s){return s.pts===topPts;})[0].id:-1;
+  var winMap={bass:biggestSize(day,'bass'),pike:biggestSize(day,'pike'),zander:biggestSize(day,'zander')};
 
   document.getElementById('cards').innerHTML=day.anglers.map(function(angler){
-    var cfg=ANGLERS[angler.id], sc=scores[angler.id], photo=S.photos[angler.id];
+    var cfg=ANGLERS[angler.id],sc=scores[angler.id],photo=S.photos[angler.id];
     var isLead=angler.id===leadId&&sc.pts>0;
-    var avatarHtml=photo
-      ?'<label class="avatar-upload"><img class="avatar-img" src="'+photo+'" style="border-color:'+cfg.hex+'66"/><span class="avatar-edit-hint">✎</span><input type="file" id="photoInp'+angler.id+'" accept="image/*" onchange="uploadPhoto('+angler.id+')"/></label>'
-      :'<label class="avatar-upload"><div class="avatar-placeholder" style="border-color:'+cfg.hex+'44">'+cfg.emoji+'</div><span class="avatar-edit-hint">📷</span><input type="file" id="photoInp'+angler.id+'" accept="image/*" onchange="uploadPhoto('+angler.id+')"/></label>';
-
-    var spRows=SPECIES.map(function(sp){
-      var count=angler.counts[sp.id], ms=angler.milestone3[sp.id];
-      var sv=angler.sizes[sp.id], nv=parseFloat(sv)||0;
-      var mailed=nv>=sp.minSize&&nv>0;
-      var isWin=angler.id===winMap[sp.id]&&mailed;
-      var bc=sv?(mailed?'#5a9a5a':'#c05050'):'#ddd';
-      var sizeCell='<div class="size-wrap"><input type="number" inputmode="decimal" class="size-inp" id="sz'+angler.id+sp.id+'" placeholder="'+sp.minSize+'cm" value="'+sv+'" style="border-color:'+bc+'" oninput="upSize('+angler.id+',\''+sp.id+'\',this.value)"/><span id="cr'+angler.id+sp.id+'" class="'+(isWin?'crown-icon':'size-unit')+'">'+(isWin?'👑':'cm')+'</span></div>';
-      var dpts=0;
-      if(sp.id==='zander'){ var zv=parseFloat(angler.sizes.zander)||0; if(count>0&&zv>=50) dpts=1; }
-      else if(ms) dpts=1;
-      return '<tr><td><div class="sp-name"><span>'+sp.emoji+'</span>'+sp.label+(ms?'<span class="milestone-pill">x3 ✓</span>':'')+'</div></td>'
-        +'<td>'+sizeCell+'</td>'
-        +'<td><div class="ctr"><button class="ctr-btn" onclick="upCount('+angler.id+',\''+sp.id+'\',-1)">−</button><span class="ctr-val" id="v'+angler.id+sp.id+'" style="color:'+cfg.hex+'">'+count+'</span><button class="ctr-btn" onclick="upCount('+angler.id+',\''+sp.id+'\',1)">+</button></div></td>'
-        +'<td class="pts-cell"><span class="pts-pill '+(dpts>0?'on':'off')+'">'+(dpts>0?'+'+dpts:'·')+'</span></td></tr>';
-    }).join('');
-
-    return '<div class="card'+(isLead?' leader':'')+'"><div class="card-accent" style="background:'+cfg.hex+'"></div>'
-      +(isLead?'<div class="leader-crown">👑</div>':'')
-      +'<div class="card-head">'+avatarHtml
-      +'<div class="card-meta"><div class="card-name" style="color:'+cfg.hex+'">'+cfg.name+'</div><div class="card-number">Competitor '+cfg.number+'</div></div>'
-      +'<div class="card-score"><div class="card-pts" style="color:'+cfg.hex+'">'+sc.pts+'</div><div class="card-pts-label">Points</div></div></div>'
-      +'<table class="species-table"><thead><tr><th>Espèce</th><th>Taille</th><th style="text-align:center">Captures</th><th style="text-align:center">Pts</th></tr></thead>'
-      +'<tbody>'+spRows+'</tbody></table></div>';
+    var avatarHtml=photo?'<label class="avatar-upload"><img class="avatar-img" src="'+photo+'" style="border-color:'+cfg.hex+'66"/><span class="avatar-edit-hint">✎</span><input type="file" id="photoInp'+angler.id+'" accept="image/*" onchange="uploadPhoto('+angler.id+')"/></label>':'<label class="avatar-upload"><div class="avatar-placeholder" style="border-color:'+cfg.hex+'44">'+cfg.emoji+'</div><span class="avatar-edit-hint">📷</span><input type="file" id="photoInp'+angler.id+'" accept="image/*" onchange="uploadPhoto('+angler.id+')"/></label>';
+    var spRows=SPECIES.map(function(sp){var count=angler.counts[sp.id],ms=angler.milestone3[sp.id];var sv=angler.sizes[sp.id],nv=parseFloat(sv)||0,mailed=nv>=sp.minSize&&nv>0;var isWin=angler.id===winMap[sp.id]&&mailed;var bc=sv?(mailed?'#5a9a5a':'#c05050'):'#ddd';var sizeCell='<div class="size-wrap"><input type="number" inputmode="decimal" class="size-inp" id="sz'+angler.id+sp.id+'" placeholder="'+sp.minSize+'cm" value="'+sv+'" style="border-color:'+bc+'" oninput="upSize('+angler.id+',\''+sp.id+'\',this.value)"/><span id="cr'+angler.id+sp.id+'" class="'+(isWin?'crown-icon':'size-unit')+'">'+(isWin?'👑':'cm')+'</span></div>';var dpts=0;if(sp.id==='zander'){var zv2=parseFloat(angler.sizes.zander)||0;if(count>0&&zv2>=50)dpts=1;}else if(ms)dpts=1;return'<tr><td><div class="sp-name"><span>'+sp.emoji+'</span>'+sp.label+(ms?'<span class="milestone-pill">x3 ✓</span>':'')+'</div></td><td>'+sizeCell+'</td><td><div class="ctr"><button class="ctr-btn" onclick="upCount('+angler.id+',\''+sp.id+'\',-1)">−</button><span class="ctr-val" id="v'+angler.id+sp.id+'" style="color:'+cfg.hex+'">'+count+'</span><button class="ctr-btn" onclick="upCount('+angler.id+',\''+sp.id+'\',1)">+</button></div></td><td class="pts-cell"><span class="pts-pill '+(dpts>0?'on':'off')+'">'+(dpts>0?'+'+dpts:'·')+'</span></td></tr>';}).join('');
+    return'<div class="card'+(isLead?' leader':'')+'"><div class="card-accent" style="background:'+cfg.hex+'"></div>'+(isLead?'<div class="leader-crown">👑</div>':'')+'<div class="card-head">'+avatarHtml+'<div class="card-meta"><div class="card-name" style="color:'+cfg.hex+'">'+cfg.name+'</div><div class="card-number">Competitor '+cfg.number+'</div></div><div class="card-score"><div class="card-pts" style="color:'+cfg.hex+'">'+sc.pts+'</div><div class="card-pts-label">Points</div></div></div><table class="species-table"><thead><tr><th>Espèce</th><th>Taille</th><th style="text-align:center">Captures</th><th style="text-align:center">Pts</th></tr></thead><tbody>'+spRows+'</tbody></table></div>';
   }).join('');
 
-  document.getElementById('bonusGrid').innerHTML=day.anglers.map(function(angler){
-    var cfg=ANGLERS[angler.id];
-    return '<div class="bonus-row">'
-      +'<div class="bonus-name" style="color:'+cfg.hex+'">'+cfg.name+'</div>'
-      +'<input class="bonus-inp" type="text" placeholder="Action insolite…" value="'+angler.bonusNote+'" oninput="upBonusNote('+angler.id+',this.value)"/>'
-      +'<div class="bonus-buttons">'
-      +'<button class="bonus-btn'+(angler.bonus?' on':'')+'" onclick="toggleBonus('+angler.id+')">⭐</button>'
-      +'<button class="bonus-btn'+(angler.livescope?' on':'')+'" onclick="toggleLivescope('+angler.id+')">📡</button>'
-      +'</div></div>';
-  }).join('');
+  document.getElementById('bonusGrid').innerHTML=day.anglers.map(function(angler){var cfg=ANGLERS[angler.id];return'<div class="bonus-row"><div class="bonus-name" style="color:'+cfg.hex+'">'+cfg.name+'</div><input class="bonus-inp" type="text" placeholder="Action insolite…" value="'+angler.bonusNote+'" oninput="upBonusNote('+angler.id+',this.value)"/><div class="bonus-buttons"><button class="bonus-btn'+(angler.bonus?' on':'')+'" onclick="toggleBonus('+angler.id+')">⭐</button><button class="bonus-btn'+(angler.livescope?' on':'')+'" onclick="toggleLivescope('+angler.id+')">📡</button></div></div>';}).join('');
 }
 
-// ── DÉMARRAGE ──
-loadPhotos();
-S = freshAll();
-render();
-
-document.getElementById('btnPrev').onclick=function(){ if(S.currentDay>0){S.currentDay--;saveToFirebase();render();} };
-document.getElementById('btnNext').onclick=function(){ if(S.currentDay<TOTAL_DAYS-1){S.currentDay++;saveToFirebase();render();} };
+// ── INIT ──
+loadPhotos();render();
+document.getElementById('btnPrev').onclick=function(){if(S.currentDay>0){S.currentDay--;saveToFirebase();render();}};
+document.getElementById('btnNext').onclick=function(){if(S.currentDay<S.days.length-1){S.currentDay++;saveToFirebase();render();}};
+document.getElementById('new-day-date').value=new Date().toISOString().split('T')[0];
 </script>
 
-<!-- Firebase chargé en dernier, ne bloque pas le rendu -->
 <script>
-window.addEventListener('load', function() {
-  try {
+window.addEventListener('load',function(){
+  try{
     var s1=document.createElement('script');
     s1.src='https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
     s1.onload=function(){
       var s2=document.createElement('script');
       s2.src='https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js';
       s2.onload=function(){
-        try {
-          firebase.initializeApp({
-            apiKey: "AIzaSyBEsGLjAefx-r6jZmrIugTqg5EB-BqrNbc",
-            authDomain: "cc-cup.firebaseapp.com",
-            databaseURL: "https://cc-cup-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "cc-cup",
-            storageBucket: "cc-cup.firebasestorage.app",
-            messagingSenderId: "894670560259",
-            appId: "1:894670560259:web:deecb4d4ce4646444e0236"
-          });
+        try{
+          firebase.initializeApp({apiKey:"AIzaSyBEsGLjAefx-r6jZmrIugTqg5EB-BqrNbc",authDomain:"cc-cup.firebaseapp.com",databaseURL:"https://cc-cup-default-rtdb.europe-west1.firebasedatabase.app",projectId:"cc-cup",storageBucket:"cc-cup.firebasestorage.app",messagingSenderId:"894670560259",appId:"1:894670560259:web:deecb4d4ce4646444e0236"});
           var db=firebase.database();
           dbRef=db.ref('iberiacup');
           firebaseReady=true;
-
-          db.ref('.info/connected').on('value',function(snap){
-            var el=document.getElementById('syncStatus');
-            if(el){ el.textContent=snap.val()?'🟢 Synchronisé':'🔴 Hors ligne'; el.style.color=snap.val()?'#3a8a30':'#c0431a'; }
-          });
-
+          db.ref('.info/connected').on('value',function(snap){var el=document.getElementById('syncStatus');if(el){el.textContent=snap.val()?'🟢 Synchronisé':'🔴 Hors ligne';el.style.color=snap.val()?'#3a8a30':'#c0431a';}});
           var ignoreNext=false;
           dbRef.on('value',function(snapshot){
             if(ignoreNext){ignoreNext=false;return;}
             var data=snapshot.val();
-            if(data && data.days && data.days.length===TOTAL_DAYS){
+            if(data&&data.days&&Array.isArray(data.days)){
               S.currentDay=data.currentDay||0;
-              S.days=data.days.map(function(d){ return dayFromData(d); });
-            } else {
-              ignoreNext=true;
-              saveToFirebase();
+              S.days=data.days.map(function(d){return dayFromData(d);});
+              if(S.currentDay>=S.days.length)S.currentDay=Math.max(0,S.days.length-1);
             }
             render();
           });
-        } catch(e){
-          document.getElementById('syncStatus').textContent='⚠️ Erreur Firebase';
-        }
+        }catch(e){document.getElementById('syncStatus').textContent='⚠️ Erreur Firebase';}
       };
       document.head.appendChild(s2);
     };
     document.head.appendChild(s1);
-  } catch(e){}
+  }catch(e){}
 });
 </script>
 </body>
